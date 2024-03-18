@@ -38,7 +38,15 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form> --}}
-        <form method="POST">
+            @if(session('thongbao_edit'))
+                <div class="container">
+                  <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>{{session('thongbao_edit')}}</strong> 
+                  </div> 
+                </div>
+            @endif
+        <form method="POST" action="{{ route('posteditAdmin', [$user->id]) }}">
             @csrf
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name</label>
@@ -67,16 +75,6 @@
             @enderror
         </br>
           <button type="submit" class="btn btn-primary">Submit</button>
-            @if(session('thongbao_edit'))
-        </br>
-                <div class="container">
-                  <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>{{session('thongbao_edit')}}</strong> 
-                  </div> 
-                </div>
-
-            @endif
         </form>
       </div><!-- /.container-fluid -->
     </section>

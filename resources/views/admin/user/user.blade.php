@@ -38,6 +38,14 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form> --}}
+        @if(session('thongbao_delete'))
+          <div class="container">
+            <div class="alert alert-success alert-dismissible">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              <strong>{{session('thongbao_delete')}}</strong> 
+            </div> 
+          </div>
+        @endif
         <table class="table">
           <thead>
             <tr>
@@ -55,8 +63,8 @@
               <td>{{$value->name}}</td>
               <td>{{$value->email}}</td>
               {{-- <td>{{$value->password}}</td> --}}
-              <td><a href="{{url('admin/user/edit/'.$value->id)}}">Edit</a></td>
-              <td><a href="{{url('admin/user/delete/'.$value->id)}}">Detele</a></td>
+              <td><a href="{{ route('geteditAdmin', [$value->id]) }}">Edit</a></td>
+              <td><a href="{{ route('getdeleteAdmin', [$value->id]) }}">Detele</a></td>
             </tr>
             @endforeach
           </tbody>
@@ -64,10 +72,9 @@
         <tfoot>
           <td>
             <tr>
-              <a href="{{url('admin/user/add')}}"><button class="btn btn-success" type="submit">ADD</button></a>
+              <a href="{{route('getaddAdmin')}}"><button class="btn btn-success" type="submit">ADD</button></a>
             </tr>
           </td>
-
         </tfoot>
       </div><!-- /.container-fluid -->
     </section>

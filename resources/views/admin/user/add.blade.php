@@ -22,7 +22,15 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <form method="POST">
+          @if(session('thongbao_add'))
+              <div class="container">
+                <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  <strong>{{session('thongbao_add')}}</strong> 
+                </div> 
+              </div>
+          @endif
+        <form method="POST" action="{{ route('postaddAdmin') }}">
             @csrf
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name</label>
@@ -58,16 +66,7 @@
             @enderror
         </br>
           <button type="submit" class="btn btn-primary">Submit</button>
-          @if(session('thongbao_add'))
-        </br>
-                <div class="container">
-                  <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>{{session('thongbao_add')}}</strong> 
-                  </div> 
-                </div>
-
-            @endif
+          
         </form>
 
       </div><!-- /.container-fluid -->
