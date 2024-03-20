@@ -38,14 +38,30 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form> --}}
-        @if(session('thongbao_delete'))
+        @if(session('notification_add'))
           <div class="container">
             <div class="alert alert-success alert-dismissible">
               <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-              <strong>{{session('thongbao_delete')}}</strong> 
+              <strong>{{session('notification_add')}}</strong> 
             </div> 
           </div>
         @endif
+        @if(session('notification_edit'))
+              <div class="container">
+                <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  <strong>{{session('notification_edit')}}</strong> 
+                </div> 
+              </div>
+          @endif
+          @if(session('notification_delete'))
+                <div class="container">
+                  <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>{{session('notification_delete')}}</strong> 
+                  </div> 
+                </div>
+            @endif
         <table class="table">
           <thead>
             <tr>

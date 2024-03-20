@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('level')->after('remember_token')
+            $table->string('password_confirm')->after('password')->integer('level')->after('remember_token')
                       ->default(1)->comment = '0:admin 1:member';
         });
     }
@@ -27,7 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            Schema::drop('users');
         });
     }
 };

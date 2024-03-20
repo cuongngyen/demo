@@ -3,7 +3,7 @@
 namespace App\Http\Requests\admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\admin\user;
+use App\Models\User;
 class UsereditRequest extends FormRequest
 {
     /**
@@ -25,36 +25,32 @@ class UsereditRequest extends FormRequest
     {
         $id = request()->id;
         $password = request()->password;
-        $user = user::where('id',$id)->first();
-        if($user->email == request()->email){
-            // kiểm tra nếu password = null thì không bắt lỗi 
-            if(!isset($password)){
-                return [
-                    'name'=>'required|min:8|max:100',
-                ]; 
-            }else{
-                return [
-                    'name'=>'required|min:8|max:100',
-                    'password'=>'required|min:6|max:50',
-                ]; 
-            }
-
+        $user = User::where('id',$id)->first();
+        // nếu email không thay đổi và pass giữ nguyên thì validate name
+        if( $user->email == request()->email && empty($password) ){
+            return [
+                'name'=>'required|min:8|max:100',
+            ]; 
+        // nếu email và pass thay đổi thì validate name, email , pass 
+        }elseif($user->email != request()->email && !empty($password)){
+            return [
+                'name'=>'required|min:8|max:100',
+                'email'=>'required|min:10|unique:Users,email|email',
+                'password'=>'required|min:6|max:50',	
+            ];
+        // nếu email không thay đổi và pass thay đổi thì validate name và pass
+        }elseif($user->email == request()->email && !empty($password)){
+            return [
+                'name'=>'required|min:8|max:100',
+                'password'=>'required|min:6|max:50',	
+            ];
+        // nếu email thay dôi và pass không đổi thì validate name email
         }else{
-            if(!isset($password)){
-                return [
-                    'name'=>'required|min:8|max:100',
-                    'email'=>'required|min:10|unique:users,email|email',
-                ];
-            }else{
-                return [
-                    'name'=>'required|min:8|max:100',
-                    'email'=>'required|min:10|unique:users,email|email',
-                    'password'=>'required|min:6|max:50',
-                ];
-            }
-
+            return [
+                'name'=>'required|min:8|max:100',
+                'email'=>'required|min:10|unique:Users,email|email',
+            ];
         }
-
     }
     public function messages () : array
     {

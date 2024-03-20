@@ -38,14 +38,6 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form> --}}
-            @if(session('thongbao_edit'))
-                <div class="container">
-                  <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>{{session('thongbao_edit')}}</strong> 
-                  </div> 
-                </div>
-            @endif
         <form method="POST" action="{{ route('posteditAdmin', [$user->id]) }}">
             @csrf
           <div class="mb-3">

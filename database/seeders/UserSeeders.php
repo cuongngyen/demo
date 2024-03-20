@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
             'password_confirm' => bcrypt('password'),
-            'level' => 0,
+            'level' => config('constant.user.admin'),
         ]);
     }
 }
