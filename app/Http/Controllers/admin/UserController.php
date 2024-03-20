@@ -55,8 +55,8 @@ class UserController extends Controller
                 ->update([
                     'name'=> $request->name,
                     'email'=> $request->email,
-                    'password' => bcrypt($request->password_temp),
-                    'password_confirm' => bcrypt($request->password_temp),
+                    'password' => $request->password_temp,
+                    'password_confirm' => $request->password_temp,
                 ]);
         }
         return redirect()->route('listUser')->with('notification_edit', 'Bạn Update thành công');
