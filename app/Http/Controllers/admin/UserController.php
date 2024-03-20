@@ -42,6 +42,7 @@ class UserController extends Controller
         // else password không thay đổi giá trị thì lấy giá trị cũ lưu vào ,
         // value của input password để trống nên 
         // ta có tạo 1 cái input hidden có name là password_temp bên view và có value mang giá trị cũ
+        $user = User::find($id);
         if(isset($request->password)){
             User::where('id',$id)
                 ->update([
@@ -55,6 +56,8 @@ class UserController extends Controller
                 ->update([
                     'name'=> $request->name,
                     'email'=> $request->email,
+                    'password' => $user->password,
+                    'password_confirm' => $user->password_confirm,
                 ]);
         }
         return redirect()->route('listUser')->with('notification_edit', 'Bạn Update thành công');
