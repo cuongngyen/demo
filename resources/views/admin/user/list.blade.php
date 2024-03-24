@@ -22,46 +22,22 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        {{-- <form>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form> --}}
-        @if(session('notification_add'))
+        @if(session('msgSuccess'))
           <div class="container">
             <div class="alert alert-success alert-dismissible">
               <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-              <strong>{{session('notification_add')}}</strong> 
+              <strong>{{session('msgSuccess')}}</strong> 
             </div> 
           </div>
         @endif
-        @if(session('notification_edit'))
+        @if(session('msgError'))
               <div class="container">
-                <div class="alert alert-success alert-dismissible">
+                <div class="alert alert-danger alert-dismissible">
                   <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  <strong>{{session('notification_edit')}}</strong> 
+                  <strong>{{session('msgError')}}</strong> 
                 </div> 
               </div>
           @endif
-          @if(session('notification_delete'))
-                <div class="container">
-                  <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>{{session('notification_delete')}}</strong> 
-                  </div> 
-                </div>
-            @endif
         <table class="table">
           <thead>
             <tr>

@@ -17,12 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/user',[UserController::class,'getUser'])->name('listUser');
+Route::group([
+    'prefix' => 'admin', //add "admin" before link
+], function () {
+Route::get('/user/list',[UserController::class,'getUser'])->name('listUser');
 
-Route::get('/admin/user/add',[UserController::class,'getAdd'])->name('getaddAdmin');
-Route::post('/admin/user/add',[UserController::class,'postAdd'])->name('postaddAdmin');
+Route::get('/user/add',[UserController::class,'getAdd'])->name('getaddAdmin');
+Route::post('/user/add',[UserController::class,'postAdd'])->name('postaddAdmin');
 
-Route::get('/admin/user/edit/{id}',[UserController::class,'getEdit'])->name('geteditAdmin');
-Route::post('/admin/user/edit/{id}',[UserController::class,'postEdit'])->name('posteditAdmin');
+Route::get('/user/edit/{id}',[UserController::class,'getEdit'])->name('geteditAdmin');
+Route::post('/user/edit/{id}',[UserController::class,'postEdit'])->name('posteditAdmin');
 
-Route::get('/admin/user/delete/{id}',[UserController::class,'Delete'])->name('getdeleteAdmin');
+Route::get('/user/delete/{id}',[UserController::class,'getDelete'])->name('getdeleteAdmin');
+});
