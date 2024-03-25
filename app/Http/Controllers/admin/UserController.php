@@ -25,9 +25,10 @@ class UserController extends Controller
         $user = $this->userService->getUser();
         if ($user) {
             return view('admin.user.list', compact('user'));
-        } else {
-            return redirect()->route('listUser')->with('msgError', 'no account');
-        }
+        } 
+
+        return redirect()->route('listUser')->with('msgError', 'no account');
+        
     }
 
     public function getAdd ()
@@ -40,9 +41,10 @@ class UserController extends Controller
         $data = $this->userService->postAdd($request->except('_token', 'password_confirm'));
         if ($data) {
             return redirect()->route('listUser')->with('msgSuccess', 'Register user success'); 
-        } else {
-            return redirect()->route('listUser')->with('msgError', 'Register user fail');
         }
+
+        return redirect()->route('listUser')->with('msgError', 'Register user fail');
+        
     }
 
     public function getEdit ($id)
@@ -50,19 +52,21 @@ class UserController extends Controller
         $user = $this->userService->getEdit($id);
         if ($user) {
             return view('admin.user.edit', compact('user'));
-        } else {
-            return redirect()->route('listUser')->with('msgError', 'User does not exist
-            ');
         }
+
+        return redirect()->route('listUser')->with('msgError', 'User does not exist
+            ');
+        
     }
     public function postEdit (UserEditRequest $request, $id)
     {
         $data = $this->userService->postEdit($id, $request->except('_token'));
         if ($data) {
             return redirect()->route('listUser')->with('msgSuccess', 'Update user success');
-        }else{
-            return redirect()->route('listUser')->with('msgError', 'Update user fail');
         }
+
+        return redirect()->route('listUser')->with('msgError', 'Update user fail');
+        
     }
 
     public function getDelete ($id )
@@ -70,8 +74,9 @@ class UserController extends Controller
         $data = $this->userService->getDelete($id);
         if ($data) {
             return redirect()->route('listUser')->with('msgSuccess', 'Delete user success');
-        } else {
-            return redirect()->route('listUser')->with('msgError', 'Delete user fail');
         }
+
+        return redirect()->route('listUser')->with('msgError', 'Delete user fail');
+        
     }
 }
