@@ -9,6 +9,7 @@ use App\Http\Requests\admin\UserEditRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserServices;
+use Illuminate\Console\View\Components\Alert;
 
 class UserController extends Controller
 {
@@ -26,7 +27,6 @@ class UserController extends Controller
         if ($user) {
             return view('admin.user.list', compact('user'));
         } 
-
         return redirect()->route('listUser')->with('msgError', 'no account');
         
     }
