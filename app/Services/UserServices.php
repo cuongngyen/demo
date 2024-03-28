@@ -12,11 +12,13 @@ class UserServices
         $this->userRepository = $userRepository;
     }
 
-    public function getUser() {
+    public function getUser() 
+    {
         return $this->userRepository->getUser();
     }
 
-    public function postAdd(array $attributes) {
+    public function postAdd(array $attributes) 
+    {
         $attributes['level'] = config('constant.user.user');
         $attributes['password'] = Hash::make($attributes['password']);
         if ($attributes) {
@@ -25,26 +27,29 @@ class UserServices
         return false;
     }
 
-    public function getEdit(int $id) {
+    public function getEdit(int $id) 
+    {
         if($id){
             return $this->userRepository->getEdit($id);    
         }
         return false;
     }
 
-    public function postEdit($id, array $attributes) {
+    public function postEdit($id, array $attributes) 
+    {
         if (!empty($attributes['password'])) {
             $attributes['password'] = Hash::make($attributes['password']);
         } else {
             unset($attributes['password']);
         }
-        if ($attributes) {
+        if ($id && $attributes) {
             return $this->userRepository->postEdit($id, $attributes);
         }
         return false;
     }
 
-    public function getDelete($id) {
+    public function getDelete($id) 
+    {
         return $this->userRepository->getDelete($id);
     }
 }

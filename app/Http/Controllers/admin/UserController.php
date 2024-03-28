@@ -4,12 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\admin\UsersRequest;
-use App\Http\Requests\admin\UserEditRequest;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\admin\user\UsersRequest;
+use App\Http\Requests\admin\user\UserEditRequest;
 use App\Services\UserServices;
-use Illuminate\Console\View\Components\Alert;
 
 class UserController extends Controller
 {
@@ -28,7 +25,6 @@ class UserController extends Controller
             return view('admin.user.list', compact('user'));
         } 
         return redirect()->route('listUser')->with('msgError', 'no account');
-        
     }
 
     public function getAdd ()
@@ -44,7 +40,6 @@ class UserController extends Controller
         }
 
         return redirect()->route('listUser')->with('msgError', 'Register user fail');
-        
     }
 
     public function getEdit ($id)
@@ -53,10 +48,7 @@ class UserController extends Controller
         if ($user) {
             return view('admin.user.edit', compact('user'));
         }
-
-        return redirect()->route('listUser')->with('msgError', 'User does not exist
-            ');
-        
+        return redirect()->route('listUser')->with('msgError', 'User does not exist');
     }
     public function postEdit (UserEditRequest $request, $id)
     {
@@ -66,10 +58,9 @@ class UserController extends Controller
         }
 
         return redirect()->route('listUser')->with('msgError', 'Update user fail');
-        
     }
 
-    public function getDelete ($id )
+    public function getDelete ($id)
     {
         $data = $this->userService->getDelete($id);
         if ($data) {
@@ -77,6 +68,5 @@ class UserController extends Controller
         }
 
         return redirect()->route('listUser')->with('msgError', 'Delete user fail');
-        
     }
 }

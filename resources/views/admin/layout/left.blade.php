@@ -36,15 +36,24 @@
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon far fa-envelope"></i>
+          <a href="{{ route('listProduct') }}" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
             <p>
-              Mailbox
-              <i class="fas fa-angle-left right"></i>
+              Product
             </p>
           </a>
-
         </li>
+
+        <li class="nav-item">
+          <a href="{{ route('listCategory') }}" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>
+              Category
+            </p>
+          </a>
+        </li>
+
+       
 
       </ul>
     </nav>
