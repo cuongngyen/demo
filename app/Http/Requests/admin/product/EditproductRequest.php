@@ -26,7 +26,7 @@ class EditproductRequest extends FormRequest
         return [
             'name'=>'required|min:2|max:50',
             'image'=> 'nullable|mimes:jpg,jpeg,png',
-            'quantily'=>'required',	
+            'quantity'=>'required',	
             'price'=>'required',	
             'description'=>'nullable|min:10|max:300',	
         ];

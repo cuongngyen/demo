@@ -6,7 +6,7 @@ use App\Models\admin\Product;
 class ProductRepository 
 {
     // product
-    public function getProduct() 
+    public function listProduct() 
     {
         return Product::get();
     }
@@ -16,7 +16,7 @@ class ProductRepository
         return Product::create($attributes);
     }
 
-    public function geteditProduct($id) 
+    public function editProduct($id) 
     {
         return Product::find($id);
     }
@@ -30,7 +30,7 @@ class ProductRepository
         return false;
     }
 
-    public function getdeleteProduct($id)
+    public function deleteProduct($id)
     {
         $product = Product::find($id);
         if ($product) {
@@ -51,7 +51,7 @@ class ProductRepository
         return Category::create($attributes);
     }
 
-    public function geteditCategory($id) 
+    public function editCategory($id) 
     {
         return Category::find($id);
     }
@@ -65,7 +65,7 @@ class ProductRepository
         return false;
     }
 
-    public function getdeleteCategory($id) 
+    public function deleteCategory($id) 
     {
         $category = Category::find($id);
         if ($category) {

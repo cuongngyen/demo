@@ -41,7 +41,7 @@
         <table class="table">
           <tfoot>
               <tr>
-                <a href="{{route('getaddCategory')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
+                <a href="{{route('addCategory')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
               </tr>
           </tfoot>
             <thead>
@@ -57,8 +57,8 @@
             <tr>
               <th scope="row">{{$value->id}}</th>
               <td>{{$value->name}}</td>
-              <td><a href="{{ route('geteditCategory', [$value->id]) }}">Edit</a></td>
-              <td><a href="{{ route('getdeleteCategory', [$value->id]) }}">Detele</a></td>
+              <td><a href="{{ route('editCategory', [$value->id]) }}">Edit</a></td>
+              <td><a href="{{ route('deleteCategory', [$value->id]) }}">Detele</a></td>
             </tr>
             @endforeach
           </tbody>

@@ -41,7 +41,7 @@
         <table class="table">
           <tfoot>
               <tr>
-                <a href="{{route('getaddProduct')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
+                <a href="{{route('addProduct')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
               </tr>
           </tfoot>
           <thead>
@@ -50,8 +50,7 @@
               <th scope="col">Product</th>
               <th scope="col">Name</th>
               <th scope="col">Price</th>
-              <th scope="col">Category</th>
-              <th scope="col">Quantily</th>
+              <th scope="col">Quantity</th>
               <th scope="col">Description</th>
               <th scope="col">Category</th>
               <th scope="col">Eidt</th>
@@ -62,27 +61,17 @@
             @foreach ($product as $key => $value)
             <tr>
               <th scope="row">{{$value->id}}</th>
-              <td><img style="width:60px;height:60px;" src="{{url('upload/product/'.$value->image)}}"></td>
+              <td><img style="width:60px;height:60px;" src="{{asset('upload/product').'/'.$value->image}}"></td>
+              {{-- <td><img style="width:60px;height:60px;" src="{{ public_path('upload/product').'/'.$value->image }}"></td> --}}
               <td>{{$value->name}}</td>
               <td>{{$value->price}}</td>
-              <td>{{$value->category}}</td>
-              <td>{{$value->quantily}}</td>
+              <td>{{$value->quantity}}</td>
               <td>{{$value->description}}</td>
               @foreach ($category as $keycategory => $valuecategory)
-              <?php
-                if ($value->id_category == $keycategory) {
-              ?>
-                <td>{{$valuecategory->name}}</td>
-              <?php
-                }
-              ?>
-                
-
-             
-              
+                @if($value->id_category == $keycategory) <td>{{$valuecategory->name}}</td> @endif
               @endforeach
-              <td><a href="{{ route('geteditProduct', [$value->id]) }}">Edit</a></td>
-              <td><a href="{{ route('getdeleteProduct', [$value->id]) }}">Detele</a></td>
+              <td><a href="{{ route('editProduct', [$value->id]) }}">Edit</a></td>
+              <td><a href="{{ route('deleteProduct', [$value->id]) }}">Detele</a></td>
             </tr>
             @endforeach
           </tbody>

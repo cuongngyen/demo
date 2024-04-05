@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\CategoryControllerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,51 +18,55 @@ use App\Http\Controllers\admin\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::group([
-    'prefix' => 'admin', //add "admin" before link
+    'prefix' => 'admin/user', //add "admin" before link
 ], function () {
     // user admin
-Route::get('/user/list',[UserController::class,'getUser'])->name('listUser');
+Route::get('/list',[UserController::class,'listUser'])->name('listUser');
 
-Route::get('/user/add',[UserController::class,'getAdd'])->name('getaddAdmin');
-Route::post('/user/add',[UserController::class,'postAdd'])->name('postaddAdmin');
+Route::get('/add',[UserController::class,'addUser'])->name('addUser');
+Route::post('/add',[UserController::class,'postaddUser'])->name('postaddUser');
 
-Route::get('/user/edit/{id}',[UserController::class,'getEdit'])->name('geteditAdmin');
-Route::post('/user/edit/{id}',[UserController::class,'postEdit'])->name('posteditAdmin');
+Route::get('/edit/{id}',[UserController::class,'editUser'])->name('editUser');
+Route::post('/edit/{id}',[UserController::class,'posteditUser'])->name('posteditUser');
 
-Route::get('/user/delete/{id}',[UserController::class,'getDelete'])->name('getdeleteAdmin');
-
+Route::get('/delete/{id}',[UserController::class,'deleteUser'])->name('deleteUser');
+});
     // end user admin
 
     // category
-Route::get('/category/list',[ProductController::class,'getCategory'])->name('listCategory');
+Route::group([
+    'prefix' => 'admin/category', //add "admin" before link
+], function () {
+Route::get('/list',[CategoryController::class,'listCategory'])->name('listCategory');
 
-Route::get('/category/add',[ProductController::class,'getaddCategory'])->name('getaddCategory');
-Route::post('/category/add',[ProductController::class,'postaddCategory'])->name('postaddCategory'); 
+Route::get('/add',[CategoryController::class,'addCategory'])->name('addCategory');
+Route::post('/add',[CategoryController::class,'postaddCategory'])->name('postaddCategory'); 
 
-Route::get('/category/edit/{id}',[ProductController::class,'geteditCategory'])->name('geteditCategory');
-Route::post('/category/edit/{id}',[ProductController::class,'posteditCategory'])->name('posteidtCategory');
+Route::get('/edit/{id}',[CategoryController::class,'editCategory'])->name('editCategory');
+Route::post('/edit/{id}',[CategoryController::class,'posteditCategory'])->name('posteidtCategory');
 
-Route::get('/category/delete/{id}',[ProductController::class,'getdeleteCategory'])->name('getdeleteCategory');
-
+Route::get('/delete/{id}',[CategoryController::class,'deleteCategory'])->name('deleteCategory');
+});
     // end category
 
     //  product admin
-Route::get('/product/list',[ProductController::class,'getProduct'])->name('listProduct');
+Route::group([
+    'prefix' => 'admin/product', //add "admin" before link
+], function () {
+Route::get('/list',[ProductController::class,'listProduct'])->name('listProduct');
 
-Route::get('/product/add',[ProductController::class,'getaddProduct'])->name('getaddProduct');
-Route::post('/product/add',[ProductController::class,'postaddProduct'])->name('postaddProduct');
+Route::get('/add',[ProductController::class,'addProduct'])->name('addProduct');
+Route::post('/add',[ProductController::class,'postaddProduct'])->name('postaddProduct');
 
-Route::get('/product/edit/{id}',[ProductController::class,'geteditProduct'])->name('geteditProduct');
-Route::post('/product/edit/{id}',[ProductController::class,'posteditProduct'])->name('posteditProduct');
+Route::get('/edit/{id}',[ProductController::class,'editProduct'])->name('editProduct');
+Route::post('/edit/{id}',[ProductController::class,'posteditProduct'])->name('posteditProduct');
 
-Route::get('/product/delete/{id}',[ProductController::class,'getdeleteProduct'])->name('getdeleteProduct');
+Route::get('/delete/{id}',[ProductController::class,'deleteProduct'])->name('deleteProduct');
 
-    // end product
+Route::get('/image/{id}',[ProductController::class,'imageProduct'])->name('imageProduct');
+
 });
-
+    // end product
 

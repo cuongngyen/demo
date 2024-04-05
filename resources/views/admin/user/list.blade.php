@@ -41,7 +41,7 @@
         <table class="table">
           <tfoot>
               <tr>
-                <a href="{{route('getaddAdmin')}}"><button class="btn btn-success" type="submit">ADD User</button></a>
+                <a href="{{route('addUser')}}"><button class="btn btn-success" type="submit">ADD User</button></a>
               </tr>
           </tfoot>
           <thead>
@@ -59,8 +59,8 @@
               <th scope="row">{{$value->id}}</th>
               <td>{{$value->name}}</td>
               <td>{{$value->email}}</td>
-              <td><a href="{{ route('geteditAdmin', [$value->id]) }}">Edit</a></td>
-              <td><a href="{{ route('getdeleteAdmin', [$value->id]) }}">Detele</a></td>
+              <td><a href="{{ route('editUser', [$value->id]) }}">Edit</a></td>
+              <td><a href="{{ route('deleteUser', [$value->id]) }}">Detele</a></td>
             </tr>
             @endforeach
           </tbody>

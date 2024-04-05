@@ -42,10 +42,10 @@
                 @enderror
 
             <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Quantily Product</label>
-            <input type="number" class="form-control" name="quantily" value="{{old('quantily')}}" placeholder="How much product is left?">
+            <label for="exampleInputPassword1" class="form-label">Quantity Product</label>
+            <input type="number" class="form-control" name="quantity" value="{{old('quantity')}}" placeholder="How much product is left?">
             </div>
-                @error('quantily')
+                @error('quantity')
                     <span style="color: red;">{{$message}}</span>
                 @enderror
 

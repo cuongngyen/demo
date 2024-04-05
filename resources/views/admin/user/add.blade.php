@@ -22,7 +22,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <form method="POST" action="{{ route('postaddAdmin') }}">
+        <form method="POST" action="{{ route('postaddUser') }}">
             @csrf
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name</label>

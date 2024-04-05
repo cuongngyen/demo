@@ -38,15 +38,15 @@
             
             <input type="file" class="form-control" name="image">
         </br>
-            <img style="width:60px;height:60px;" src="{{url('upload/product/'.$product->image)}}">
+            <img style="width:60px;height:60px;" src="{{asset('upload/product').'/'.$product->image}}">
         </div>
             @error('image')
               <span style="color: red;">{{$message}}</span>
             @enderror
 
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Quantily</label>
-            <input type="number" class="form-control" name="quantily" value="{{$product->quantily}}"  >
+            <label for="exampleInputPassword1" class="form-label">Quantity</label>
+            <input type="number" class="form-control" name="quantity" value="{{$product->quantity}}"  >
         </div>
             @error('quantily')
               <span style="color: red;">{{$message}}</span>
@@ -73,20 +73,7 @@
             <label for="exampleInputPassword1" class="form-label">Category Product</label>
                 <select class="form-control form-control-line" name="id_category">
                     @foreach($category as $key => $value)
-                    <?php
-                        if ($product->id_category == $key) {
-                    ?>
-                        <option value="" selected>{{$value->name}}</option>
-                    <?php
-                        }else{
-                    ?>
-                        <option value="{{$key}}" >{{$value->name}}</option>
-                    <?php
-                        }
-                    ?>
-                        
-                    
-                        
+                    <option value="{{ $key }}" @if ($key == old('id_category', $product->id_category)) selected="selected" @endif>{{ $value->name }}</option>
                     @endforeach
                 </select>
         </div>

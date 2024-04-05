@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Repositories\product\ProductRepository;
-
+use Illuminate\Support\Str;
 class ProductServices 
 {
     protected $productRepository;
@@ -12,9 +12,9 @@ class ProductServices
     }
 
     // Product 
-    public function getProduct() 
+    public function listProduct() 
     {
-        return $this->productRepository->getProduct();
+        return $this->productRepository->listProduct();
     }
 
     public function postaddProduct(array $attributes) 
@@ -25,17 +25,18 @@ class ProductServices
         } 
         return false;
     }
-
-    public function geteditProduct($id) 
+    
+    public function editProduct($id) 
     {
         if ($id) {
-            return $this->productRepository->geteditproduct($id);
+            return $this->productRepository->editProduct($id);
         }
         return false;
     }
 
     public function posteditProduct($id, array $attributes)
     {
+        // dd($attributes);
         if ( empty($attributes['description']) ) {
             unset($attributes['description']);
         } 
@@ -51,10 +52,10 @@ class ProductServices
         return false;
     }
 
-    public function getdeleteProduct($id)
+    public function deleteProduct($id)
     {
         if ($id) {
-            return $this->productRepository->getdeleteProduct($id);
+            return $this->productRepository->deleteProduct($id);
         }
         return false;
     }
@@ -73,10 +74,10 @@ class ProductServices
         return false;
     }
 
-    public function geteditCategory(int $id) 
+    public function editCategory(int $id) 
     {
         if ($id) {
-            return $this->productRepository->geteditCategory($id);    
+            return $this->productRepository->editCategory($id);    
         }
         return false;
     }
@@ -89,12 +90,23 @@ class ProductServices
         return false;
     }
 
-    public function getdeleteCategory($id) 
+    public function deleteCategory($id) 
     {
         if ($id) {
-            return $this->productRepository->getdeleteCategory($id);
+            return $this->productRepository->deleteCategory($id);
         }
         return false;
     }
     // end category
+
+    // upload
+
+    public function uploadFile($file)
+    {
+        if ($file) {
+            $file->move(base_path('public/upload/product'), $file->getClientOriginalName());
+        } 
+        return false;
+    }
+    // end upload
 }
