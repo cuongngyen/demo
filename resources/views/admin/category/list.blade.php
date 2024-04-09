@@ -41,7 +41,7 @@
         <table class="table">
           <tfoot>
               <tr>
-                <a href="{{route('addCategory')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
+                <a href="{{route('createCategory')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
               </tr>
           </tfoot>
             <thead>

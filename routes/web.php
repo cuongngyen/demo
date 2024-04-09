@@ -41,11 +41,11 @@ Route::group([
 ], function () {
 Route::get('/list',[CategoryController::class,'listCategory'])->name('listCategory');
 
-Route::get('/add',[CategoryController::class,'addCategory'])->name('addCategory');
-Route::post('/add',[CategoryController::class,'postaddCategory'])->name('postaddCategory'); 
+Route::get('/add',[CategoryController::class,'createCategory'])->name('createCategory');
+Route::post('/add',[CategoryController::class,'storeCategory'])->name('storeCategory'); 
 
 Route::get('/edit/{id}',[CategoryController::class,'editCategory'])->name('editCategory');
-Route::post('/edit/{id}',[CategoryController::class,'posteditCategory'])->name('posteidtCategory');
+Route::post('/edit/{id}',[CategoryController::class,'updateCategory'])->name('updateCategory');
 
 Route::get('/delete/{id}',[CategoryController::class,'deleteCategory'])->name('deleteCategory');
 });
@@ -57,15 +57,13 @@ Route::group([
 ], function () {
 Route::get('/list',[ProductController::class,'listProduct'])->name('listProduct');
 
-Route::get('/add',[ProductController::class,'addProduct'])->name('addProduct');
-Route::post('/add',[ProductController::class,'postaddProduct'])->name('postaddProduct');
+Route::get('/add',[ProductController::class,'createProduct'])->name('createProduct');
+Route::post('/add',[ProductController::class,'storeProduct'])->name('storeProduct');
 
 Route::get('/edit/{id}',[ProductController::class,'editProduct'])->name('editProduct');
-Route::post('/edit/{id}',[ProductController::class,'posteditProduct'])->name('posteditProduct');
+Route::post('/edit/{id}',[ProductController::class,'updateProduct'])->name('updateProduct');
 
 Route::get('/delete/{id}',[ProductController::class,'deleteProduct'])->name('deleteProduct');
-
-Route::get('/image/{id}',[ProductController::class,'imageProduct'])->name('imageProduct');
 
 });
     // end product

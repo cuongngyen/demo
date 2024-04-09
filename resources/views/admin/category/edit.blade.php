@@ -23,7 +23,7 @@
     <section class="content">
       <div class="container-fluid">
         
-        <form method="POST" action="{{ route('posteidtCategory', [$category->id]) }}">
+        <form method="POST" action="{{ route('updateCategory', [$category->id]) }}">
             @csrf
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name</label>

@@ -1,6 +1,5 @@
 <?php
 namespace App\Repositories\product;
-use App\Models\admin\Category;
 use App\Models\admin\Product;
 
 class ProductRepository 
@@ -8,10 +7,10 @@ class ProductRepository
     // product
     public function listProduct() 
     {
-        return Product::get();
+        return Product::with('category')->get();
     }
 
-    public function postaddProduct(array $attributes) 
+    public function storeProduct(array $attributes) 
     {
         return Product::create($attributes);
     }
@@ -21,7 +20,7 @@ class ProductRepository
         return Product::find($id);
     }
 
-    public function posteditProduct($id, array $attributes)
+    public function updateProduct($id, array $attributes)
     {
         $product = Product::find($id);
         if ($product) {
@@ -39,39 +38,4 @@ class ProductRepository
         return false;
     }
 
-
-    // category
-    public function getCategory() 
-    {
-        return Category::get();
-    }
-    
-    public function postaddCategory(array $attributes) 
-    {
-        return Category::create($attributes);
-    }
-
-    public function editCategory($id) 
-    {
-        return Category::find($id);
-    }
-
-    public function posteditCategory($id, array $attributes) 
-    {
-        $category = Category::find($id);
-        if ($category) {
-            return $category->update($attributes);
-        }
-        return false;
-    }
-
-    public function deleteCategory($id) 
-    {
-        $category = Category::find($id);
-        if ($category) {
-            return $category->delete();
-        }
-        return false;
-    }
-    // end category
 }

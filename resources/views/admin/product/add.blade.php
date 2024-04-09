@@ -23,7 +23,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <form method="POST" action="{{ route('postaddProduct') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('storeProduct') }}" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name Product</label>

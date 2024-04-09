@@ -2,7 +2,9 @@
 namespace App\Services;
 
 use App\Repositories\product\ProductRepository;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File; 
+use App\Models\admin\Product;
+
 class ProductServices 
 {
     protected $productRepository;
@@ -17,11 +19,15 @@ class ProductServices
         return $this->productRepository->listProduct();
     }
 
-    public function postaddProduct(array $attributes) 
+    public function storeProduct(array $attributes) 
     {
         if ($attributes) {
             $attributes['image'] = $attributes['image']->getClientOriginalName();
-            return $this->productRepository->postaddProduct($attributes);
+            $product = Product::where('image', $attributes['image'])->get();
+            if (count($product) != 0) {
+                File::delete(public_path('upload/product/'. $attributes['image']));
+            }
+            return $this->productRepository->storeProduct($attributes);
         } 
         return false;
     }
@@ -34,9 +40,8 @@ class ProductServices
         return false;
     }
 
-    public function posteditProduct($id, array $attributes)
+    public function updateProduct($id, array $attributes)
     {
-        // dd($attributes);
         if ( empty($attributes['description']) ) {
             unset($attributes['description']);
         } 
@@ -47,7 +52,7 @@ class ProductServices
             $attributes['image'] = $attributes['image']->getClientOriginalName();
         }
         if ($id && $attributes) {
-            return $this->productRepository->posteditProduct($id, $attributes);
+            return $this->productRepository->updateProduct($id, $attributes);
         }
         return false;
     }
@@ -60,45 +65,6 @@ class ProductServices
         return false;
     }
 
-    // category
-    public function getCategory() 
-    {
-        return $this->productRepository->getCategory();
-    }
-
-    public function postaddCategory(array $attributes) 
-    {
-        if($attributes){
-            return $this->productRepository->postaddCategory($attributes);
-        }
-        return false;
-    }
-
-    public function editCategory(int $id) 
-    {
-        if ($id) {
-            return $this->productRepository->editCategory($id);    
-        }
-        return false;
-    }
-
-    public function posteditCategory($id, array $attributes) 
-    {
-        if ($id && $attributes) {
-            return $this->productRepository->posteditCategory($id, $attributes);    
-        }
-        return false;
-    }
-
-    public function deleteCategory($id) 
-    {
-        if ($id) {
-            return $this->productRepository->deleteCategory($id);
-        }
-        return false;
-    }
-    // end category
-
     // upload
 
     public function uploadFile($file)
@@ -108,5 +74,16 @@ class ProductServices
         } 
         return false;
     }
+
+    public function deleteFile($id)
+    {
+        $listProduct = $this->productRepository->listProduct()->where('id', '!=', $id)->toArray();
+        $firstImage = array_column($listProduct, 'image');
+        $imageId = $this->productRepository->editProduct($id)->image;
+        if (!in_array($imageId,$firstImage)) {
+            File::delete(public_path('upload/product/'. $imageId));
+        } 
+    }
     // end upload
+
 }

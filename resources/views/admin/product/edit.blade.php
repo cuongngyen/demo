@@ -23,7 +23,7 @@
     <section class="content">
       <div class="container-fluid">
         
-        <form method="POST" action="{{ route('posteditProduct', [$product->id]) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('updateProduct', [$product->id]) }}" enctype="multipart/form-data">
             @csrf
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name</label>
@@ -38,7 +38,7 @@
             
             <input type="file" class="form-control" name="image">
         </br>
-            <img style="width:60px;height:60px;" src="{{asset('upload/product').'/'.$product->image}}">
+            <img style="width:60px;height:60px;" src="{{asset('upload/product/'.$product->image)}}">
         </div>
             @error('image')
               <span style="color: red;">{{$message}}</span>
@@ -72,8 +72,8 @@
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Category Product</label>
                 <select class="form-control form-control-line" name="id_category">
-                    @foreach($category as $key => $value)
-                    <option value="{{ $key }}" @if ($key == old('id_category', $product->id_category)) selected="selected" @endif>{{ $value->name }}</option>
+                    @foreach($category as $value)
+                    <option value="{{ $value->id }}" @if ($value->id == old('id_category', $product->id_category)) selected="selected" @endif>{{ $value->name }}</option>
                     @endforeach
                 </select>
         </div>

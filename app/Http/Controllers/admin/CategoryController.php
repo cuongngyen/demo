@@ -3,33 +3,32 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\ProductServices;
-use App\Http\Requests\admin\category\CategoryRequest;
+use App\Services\CategoryServices;
 use App\Http\Requests\admin\category\EditcategoryRequest;
-
+use App\Http\Requests\admin\category\CategoryRequest;
 class CategoryController extends Controller
 {
-    public $productService;
-    
-    public function __construct(ProductServices $productService)
+    public $categoryService;
+
+    public function __construct(CategoryServices $categoryService)
     {
-        $this->productService = $productService;
+        $this->categoryService = $categoryService;
     }
 
     public function listCategory()
     {
-        $category = $this->productService->getCategory();
+        $category = $this->categoryService->listCategory();
         return view('admin.category.list', compact('category'));
     }
 
-    public function addCategory()
+    public function createCategory()
     {
         return view('admin.category.add');
     }
     
-    public function postaddCategory(CategoryRequest $request)
+    public function storeCategory(CategoryRequest $request)
     {
-        $category = $this->productService->postaddCategory($request->except('_token'));
+        $category = $this->categoryService->storeCategory($request->except('_token'));
         if ($category) {
             return redirect()->route('listCategory')->with('msgSuccess', 'Register category success');
         }
@@ -38,16 +37,16 @@ class CategoryController extends Controller
 
     public function editCategory($id)
     {
-        $category = $this->productService->editCategory($id);
+        $category = $this->categoryService->editCategory($id);
         if ($category) {
             return view('admin.category.edit', compact('category'));
         }
         return redirect()->route('listCategory')->with('msgError', 'Category does not exist');
     }
 
-    public function posteditCategory(EditcategoryRequest $request, $id)
+    public function updateCategory(EditcategoryRequest $request, $id)
     {
-        $category = $this->productService->posteditCategory($id ,$request->except('_token'));
+        $category = $this->categoryService->updateCategory($id ,$request->except('_token'));
         if ($category) {
             return redirect()->route('listCategory')->with('msgSuccess', 'Update category success');
         } 
@@ -56,7 +55,7 @@ class CategoryController extends Controller
 
     public function deleteCategory($id)
     {
-        $category = $this->productService->deleteCategory($id);
+        $category = $this->categoryService->deleteCategory($id);
         if ($category) {
             return redirect()->route('listCategory')->with('msgSuccess', 'Delete category success');
         } 

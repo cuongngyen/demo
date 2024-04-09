@@ -41,7 +41,7 @@
         <table class="table">
           <tfoot>
               <tr>
-                <a href="{{route('addProduct')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
+                <a href="{{route('createProduct')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
               </tr>
           </tfoot>
           <thead>
@@ -61,15 +61,12 @@
             @foreach ($product as $key => $value)
             <tr>
               <th scope="row">{{$value->id}}</th>
-              <td><img style="width:60px;height:60px;" src="{{asset('upload/product').'/'.$value->image}}"></td>
-              {{-- <td><img style="width:60px;height:60px;" src="{{ public_path('upload/product').'/'.$value->image }}"></td> --}}
+              <td><img style="width:60px;height:60px;" src="{{asset('upload/product/'.$value->image)}}"></td>
               <td>{{$value->name}}</td>
               <td>{{$value->price}}</td>
               <td>{{$value->quantity}}</td>
               <td>{{$value->description}}</td>
-              @foreach ($category as $keycategory => $valuecategory)
-                @if($value->id_category == $keycategory) <td>{{$valuecategory->name}}</td> @endif
-              @endforeach
+              <td>{{$value->category->name}}</td>
               <td><a href="{{ route('editProduct', [$value->id]) }}">Edit</a></td>
               <td><a href="{{ route('deleteProduct', [$value->id]) }}">Detele</a></td>
             </tr>

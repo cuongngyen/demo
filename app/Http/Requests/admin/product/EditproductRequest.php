@@ -26,8 +26,8 @@ class EditproductRequest extends FormRequest
         return [
             'name'=>'required|min:2|max:50',
             'image'=> 'nullable|mimes:jpg,jpeg,png',
-            'quantity'=>'required',	
-            'price'=>'required',	
+            'quantity'=>'required|numeric',	
+            'price'=>'required|numeric',	
             'description'=>'nullable|min:10|max:300',	
         ];
     }
@@ -39,6 +39,7 @@ class EditproductRequest extends FormRequest
             'min'=>':attributes phải lớn hơn :min',
             'max'=>':attributes phải nhỏ hơn :max',
             'mimes'=>':attribute không đúng định dạng',
+            'numeric'=>':attribute không đúng định dang số',
         ];
     }
 }
