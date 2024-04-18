@@ -5,9 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Services\ProductServices;
 use App\Http\Requests\admin\product\ProductRequest;
-use App\Http\Requests\admin\product\EditproductRequest;
+use App\Http\Requests\admin\product\ProducteditRequest;
 use App\Services\CategoryServices;
-use Illuminate\Support\Facades\File; 
 
 class ProductController extends Controller
 {
@@ -37,8 +36,6 @@ class ProductController extends Controller
     {
         $product = $this->productService->storeProduct($request->except('_token'));
         if ($product) {
-            $file = $request->image;
-            $productServices->uploadFile($file);
             return redirect()->route('listProduct')->with('msgSuccess', 'Register product success');
         }
         return redirect()->route('listProduct')->with('msgError', 'Register product fail');
@@ -46,9 +43,9 @@ class ProductController extends Controller
 
     public function editProduct($id)
     {
-        if ($id) {
-            $product = $this->productService->editProduct($id);
-        }
+
+        $product = $this->productService->editProduct($id);
+
         if ($product) {
             $category = $this->categoryService->listCategory();
             return view('admin.product.edit', compact('product','category')); 
@@ -56,27 +53,22 @@ class ProductController extends Controller
         return redirect()->route('listProduct')->with('msgError', 'Product does not exist');
     }
 
-    public function updateProduct(EditproductRequest $request, ProductServices $productServices, $id)
+    public function updateProduct(ProducteditRequest $request, $id)
     {
-        if ($id) {
-            $productServices->deleteFile($id);
-        }
-        $product = $this->productService->updateProduct($id, $request->except('_token'));
+        $imageOld = $this->productService->getImageOld($id);
+        $product = $this->productService->updateProduct($request->except('_token'), $id, $imageOld);
         if ($product) {
-            $file = $request->image;
-            $productServices->uploadFile($file);
             return redirect()->route('listProduct')->with('msgSuccess', 'Edit product success');
         }
         return redirect()->route('listProduct')->with('msgError', 'Edit product fail');
     }
 
-    public function deleteProduct( ProductServices $productServices, $id)
+    public function deleteProduct($id)
     {
-        if ($id) {
-            $productServices->deleteFile($id);
-        }
-        $product = $this->productService->deleteProduct($id);
+        $imageOld = $this->productService->getImageOld($id);
+        $product = $this->productService->deleteProduct($imageOld, $id);
         if ($product) {
+           
             return redirect()->route('listProduct')->with('msgSuccess', 'Delete product success');
         }
         return redirect()->route('listProduct')->with('msgError', 'Delete Product fail');

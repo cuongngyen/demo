@@ -4,7 +4,7 @@ namespace App\Http\Requests\admin\category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditcategoryRequest extends FormRequest
+class CategoryeditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

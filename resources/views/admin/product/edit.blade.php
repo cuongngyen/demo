@@ -62,8 +62,8 @@
 
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Description Product</label>
-            <textarea class="form-control" value="{{$product->description}}" name="description"  placeholder="Describe your product
-                "></textarea>
+            <textarea class="form-control" name="description"  placeholder="Describe your product
+                ">{{$product->description}}</textarea>
         </div>
             @error('description')
                 <span style="color: red;">{{$message}}</span>

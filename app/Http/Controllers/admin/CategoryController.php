@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\CategoryServices;
-use App\Http\Requests\admin\category\EditcategoryRequest;
+use App\Http\Requests\admin\category\CategoryeditRequest;
 use App\Http\Requests\admin\category\CategoryRequest;
 class CategoryController extends Controller
 {
@@ -44,7 +44,7 @@ class CategoryController extends Controller
         return redirect()->route('listCategory')->with('msgError', 'Category does not exist');
     }
 
-    public function updateCategory(EditcategoryRequest $request, $id)
+    public function updateCategory(CategoryeditRequest $request, $id)
     {
         $category = $this->categoryService->updateCategory($id ,$request->except('_token'));
         if ($category) {

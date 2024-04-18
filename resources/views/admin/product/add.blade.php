@@ -59,20 +59,21 @@
 
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Category Product</label>
-                    <select class="form-control form-control-line" name="id_category"  value="{{old('category')}}">
-                      @foreach($category as $key => $value)
-                        <option value="{{$key}}">{{$value->name}}</option>
+                    <select class="form-control form-control-line" name="id_category">
+                      <option value="">--Please choose-- </option>
+                      @foreach($category as $value)
+                        <option value="{{$value->id}}">{{$value->name}}</option>
                       @endforeach
                     </select>
             </div>
-                @error('category')
+                @error('id_category')
                     <span style="color: red;">{{$message}}</span>
                 @enderror
 
             <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Description Product</label>
-            <textarea class="form-control" name="description" value="{{old('description')}}"  placeholder="Describe your product
-            "></textarea>
+            <textarea class="form-control" name="description"   placeholder="Describe your product
+            ">{{old('description')}}</textarea>
             </div>
                 @error('description')
                     <span style="color: red;">{{$message}}</span>

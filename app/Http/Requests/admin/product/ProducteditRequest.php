@@ -4,7 +4,7 @@ namespace App\Http\Requests\admin\product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditproductRequest extends FormRequest
+class ProducteditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class EditproductRequest extends FormRequest
             'image'=> 'nullable|mimes:jpg,jpeg,png',
             'quantity'=>'required|numeric',	
             'price'=>'required|numeric',	
-            'description'=>'nullable|min:10|max:300',	
+            'description'=>'nullable',	
         ];
     }
 

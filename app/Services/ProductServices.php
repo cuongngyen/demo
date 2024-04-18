@@ -21,14 +21,12 @@ class ProductServices
 
     public function storeProduct(array $attributes) 
     {
+       
         if ($attributes) {
-            $attributes['image'] = $attributes['image']->getClientOriginalName();
-            $product = Product::where('image', $attributes['image'])->get();
-            if (count($product) != 0) {
-                File::delete(public_path('upload/product/'. $attributes['image']));
-            }
+            $upload = $this->uploadFile($attributes);
+            $attributes['image'] = $upload;
             return $this->productRepository->storeProduct($attributes);
-        } 
+        }
         return false;
     }
     
@@ -40,50 +38,59 @@ class ProductServices
         return false;
     }
 
-    public function updateProduct($id, array $attributes)
+    public function updateProduct(array $attributes, $id, $imageOld)
     {
-        if ( empty($attributes['description']) ) {
-            unset($attributes['description']);
+        if (!empty($attributes['image']) ) { 
+            $nameImage = $this->uploadFile($attributes, $imageOld, $id);
+            $attributes['image'] = $nameImage;
+        }
+        return $this->productRepository->updateProduct($id, $attributes); 
+    }
+
+    public function getImageOld($id) 
+    {
+        return $this->editProduct($id);
+    }
+
+    public function deleteProduct($imageOld, $id)
+    {
+        $attributes['image'] = "";
+        if (empty($attributes['image'])) {
+            $this->uploadFile($attributes, $imageOld, $id);
+        }
+        return $this->productRepository->deleteProduct($id);
+    }
+
+    public function uploadFile($attributes, $imageOld="", $id="")
+    {
+        if (!empty($attributes['image'])) {
+            $nameImage = str() . uniqid() . '.' . $attributes['image']->getClientOriginalExtension();
         } 
-        if ( empty($attributes['id_category']) ) {
-            unset($attributes['id_category']);
+
+        if (!$id) {
+            $attributes['image']->move(base_path('public/upload/product'), $nameImage);
+            return $nameImage;
+        } else{
+            if (empty($attributes['image'])) {
+                $checkPath = File::exists(public_path('upload/product/'. $imageOld['image']));
+                if ($checkPath) {
+                    File::delete(public_path('upload/product/'. $imageOld['image']));
+                }
+            }
         }
-        if ( !empty($attributes['image']) ) {
-            $attributes['image'] = $attributes['image']->getClientOriginalName();
+
+        if (!empty($attributes['image']) && $imageOld) {
+            $checkPath = File::exists(public_path('upload/product/'. $imageOld['image']));
+            if ($checkPath) {
+                File::delete(public_path('upload/product/'. $imageOld['image']));
+            }
+            $attributes['image']->move(base_path('public/upload/product'), $nameImage);
+            return $nameImage;
         }
-        if ($id && $attributes) {
-            return $this->productRepository->updateProduct($id, $attributes);
-        }
+        
         return false;
     }
 
-    public function deleteProduct($id)
-    {
-        if ($id) {
-            return $this->productRepository->deleteProduct($id);
-        }
-        return false;
-    }
-
-    // upload
-
-    public function uploadFile($file)
-    {
-        if ($file) {
-            $file->move(base_path('public/upload/product'), $file->getClientOriginalName());
-        } 
-        return false;
-    }
-
-    public function deleteFile($id)
-    {
-        $listProduct = $this->productRepository->listProduct()->where('id', '!=', $id)->toArray();
-        $firstImage = array_column($listProduct, 'image');
-        $imageId = $this->productRepository->editProduct($id)->image;
-        if (!in_array($imageId,$firstImage)) {
-            File::delete(public_path('upload/product/'. $imageId));
-        } 
-    }
-    // end upload
+    
 
 }
