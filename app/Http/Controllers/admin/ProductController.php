@@ -66,9 +66,8 @@ class ProductController extends Controller
     public function deleteProduct($id)
     {
         $imageOld = $this->productService->getImageOld($id);
-        $product = $this->productService->deleteProduct($imageOld, $id);
+        $product = $this->productService->deleteProduct($id,$imageOld);
         if ($product) {
-           
             return redirect()->route('listProduct')->with('msgSuccess', 'Delete product success');
         }
         return redirect()->route('listProduct')->with('msgError', 'Delete Product fail');

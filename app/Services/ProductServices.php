@@ -21,7 +21,6 @@ class ProductServices
 
     public function storeProduct(array $attributes) 
     {
-       
         if ($attributes) {
             $upload = $this->uploadFile($attributes);
             $attributes['image'] = $upload;
@@ -52,11 +51,10 @@ class ProductServices
         return $this->editProduct($id);
     }
 
-    public function deleteProduct($imageOld, $id)
+    public function deleteProduct($id, $imageOld)
     {
-        $attributes['image'] = "";
-        if (empty($attributes['image'])) {
-            $this->uploadFile($attributes, $imageOld, $id);
+        if ($imageOld && $id) {
+            $this->uploadFile($id,$imageOld);
         }
         return $this->productRepository->deleteProduct($id);
     }
@@ -66,17 +64,12 @@ class ProductServices
         if (!empty($attributes['image'])) {
             $nameImage = str() . uniqid() . '.' . $attributes['image']->getClientOriginalExtension();
         } 
-
-        if (!$id) {
+        
+        if ($imageOld) {
+            File::delete(public_path('upload/product/'. $imageOld['image']));
+        } else {
             $attributes['image']->move(base_path('public/upload/product'), $nameImage);
             return $nameImage;
-        } else{
-            if (empty($attributes['image'])) {
-                $checkPath = File::exists(public_path('upload/product/'. $imageOld['image']));
-                if ($checkPath) {
-                    File::delete(public_path('upload/product/'. $imageOld['image']));
-                }
-            }
         }
 
         if (!empty($attributes['image']) && $imageOld) {
@@ -88,7 +81,7 @@ class ProductServices
             return $nameImage;
         }
         
-        return false;
+        return true;
     }
 
     
