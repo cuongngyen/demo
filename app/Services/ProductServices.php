@@ -53,8 +53,8 @@ class ProductServices
 
     public function deleteProduct($id, $imageOld)
     {
-        if ($imageOld && $id) {
-            $this->uploadFile($id,$imageOld);
+        if ($id) {
+            $this->deleteFile($imageOld);
         }
         return $this->productRepository->deleteProduct($id);
     }
@@ -64,26 +64,26 @@ class ProductServices
         if (!empty($attributes['image'])) {
             $nameImage = str() . uniqid() . '.' . $attributes['image']->getClientOriginalExtension();
         } 
-        
-        if ($imageOld) {
-            File::delete(public_path('upload/product/'. $imageOld['image']));
-        } else {
-            $attributes['image']->move(base_path('public/upload/product'), $nameImage);
-            return $nameImage;
-        }
 
-        if (!empty($attributes['image']) && $imageOld) {
+        if ($imageOld) {
             $checkPath = File::exists(public_path('upload/product/'. $imageOld['image']));
             if ($checkPath) {
                 File::delete(public_path('upload/product/'. $imageOld['image']));
             }
             $attributes['image']->move(base_path('public/upload/product'), $nameImage);
             return $nameImage;
-        }
-        
-        return true;
+        } 
+
+        $attributes['image']->move(base_path('public/upload/product'), $nameImage);
+        return $nameImage;
     }
 
-    
+    public function deleteFile($imageOld)
+    {
+        $checkPath = File::exists(public_path('upload/product/'. $imageOld['image']));
+        if ($checkPath) {
+            File::delete(public_path('upload/product/'. $imageOld['image']));
+        }
+    }
 
 }
