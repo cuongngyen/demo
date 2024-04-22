@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User</h1>
+            <h1 class="m-0">ADD User</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -22,7 +22,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <form method="POST" action="{{ route('postaddAdmin') }}">
+        <form method="POST" action="{{ route('postaddUser') }}">
             @csrf
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Name</label>

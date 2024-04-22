@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User</h1>
+            <h1 class="m-0">Product</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -37,30 +37,38 @@
                   <strong>{{session('msgError')}}</strong> 
                 </div> 
               </div>
-          @endif
+        @endif
         <table class="table">
           <tfoot>
               <tr>
-                <a href="{{route('addUser')}}"><button class="btn btn-success" type="submit">ADD User</button></a>
+                <a href="{{route('createProduct')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
               </tr>
           </tfoot>
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">name</th>
-              <th scope="col">email</th>
-              <th  scope="col">Edit</th>
-              <th  scope="col">Detele</th>
+              <th scope="col">Product</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Description</th>
+              <th scope="col">Category</th>
+              <th scope="col">Eidt</th>
+              <th scope="col">Detele</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($user as $key => $value)
+            @foreach ($product as $key => $value)
             <tr>
               <th scope="row">{{$value->id}}</th>
+              <td><img style="width:60px;height:60px;" src="{{asset('upload/product/'.$value->image)}}"></td>
               <td>{{$value->name}}</td>
-              <td>{{$value->email}}</td>
-              <td><a href="{{ route('editUser', [$value->id]) }}">Edit</a></td>
-              <td><a href="{{ route('deleteUser', [$value->id]) }}">Detele</a></td>
+              <td>{{$value->price}}</td>
+              <td>{{$value->quantity}}</td>
+              <td>{{$value->description}}</td>
+              <td>{{$value->category->name}}</td>
+              <td><a href="{{ route('editProduct', [$value->id]) }}">Edit</a></td>
+              <td><a href="{{ route('deleteProduct', [$value->id]) }}">Detele</a></td>
             </tr>
             @endforeach
           </tbody>

@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User</h1>
+            <h1 class="m-0">Category</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -41,26 +41,24 @@
         <table class="table">
           <tfoot>
               <tr>
-                <a href="{{route('addUser')}}"><button class="btn btn-success" type="submit">ADD User</button></a>
+                <a href="{{route('createCategory')}}"><button class="btn btn-success" type="submit">ADD Product</button></a>
               </tr>
           </tfoot>
-          <thead>
+            <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">name</th>
-              <th scope="col">email</th>
-              <th  scope="col">Edit</th>
-              <th  scope="col">Detele</th>
+              <th scope="col">Category</th>
+              <th scope="col">Eidt</th>
+              <th scope="col">Detele</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($user as $key => $value)
+            @foreach($category as $key => $value)
             <tr>
               <th scope="row">{{$value->id}}</th>
               <td>{{$value->name}}</td>
-              <td>{{$value->email}}</td>
-              <td><a href="{{ route('editUser', [$value->id]) }}">Edit</a></td>
-              <td><a href="{{ route('deleteUser', [$value->id]) }}">Detele</a></td>
+              <td><a href="{{ route('editCategory', [$value->id]) }}">Edit</a></td>
+              <td><a href="{{ route('deleteCategory', [$value->id]) }}">Detele</a></td>
             </tr>
             @endforeach
           </tbody>

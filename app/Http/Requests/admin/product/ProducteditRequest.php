@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\admin;
+namespace App\Http\Requests\admin\product;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\User;
-class UserEditRequest extends FormRequest
+
+class ProducteditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,20 +24,22 @@ class UserEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|min:8|max:100',
-            'email'=> 'required|min:10|email|unique:users,email,' . request()->id,
-            'password'=>'nullable|min:6|max:50',	
+            'name'=>'required|min:2|max:50',
+            'image'=> 'nullable|mimes:jpg,jpeg,png',
+            'quantity'=>'required|numeric',	
+            'price'=>'required|numeric',	
+            'description'=>'nullable',	
         ];
     }
-    
+
     public function messages () : array
     {
         return [
-            'email' => ':attribute không hợp lệ',
-            'unique'=>':attribute đã tồn tại',
             'required'=>':attribute Vui lòng điền ',
             'min'=>':attributes phải lớn hơn :min',
             'max'=>':attributes phải nhỏ hơn :max',
+            'mimes'=>':attribute không đúng định dạng',
+            'numeric'=>':attribute không đúng định dang số',
         ];
     }
 }
