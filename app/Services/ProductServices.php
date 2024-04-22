@@ -51,9 +51,10 @@ class ProductServices
         return $this->editProduct($id);
     }
 
-    public function deleteProduct($id, $imageOld)
+    public function deleteProduct($id)
     {
         if ($id) {
+            $imageOld = $this->getImageOld($id);
             $this->deleteFile($imageOld);
         }
         return $this->productRepository->deleteProduct($id);
@@ -80,10 +81,11 @@ class ProductServices
 
     public function deleteFile($imageOld)
     {
-        $checkPath = File::exists(public_path('upload/product/'. $imageOld['image']));
+        $checkPath = File::exists(public_path('upload/product/'. $imageOld->image));
         if ($checkPath) {
-            File::delete(public_path('upload/product/'. $imageOld['image']));
+            File::delete(public_path('upload/product/'. $imageOld->image));
         }
+       
     }
 
 }

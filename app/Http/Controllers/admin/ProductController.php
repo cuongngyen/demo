@@ -43,9 +43,7 @@ class ProductController extends Controller
 
     public function editProduct($id)
     {
-
         $product = $this->productService->editProduct($id);
-
         if ($product) {
             $category = $this->categoryService->listCategory();
             return view('admin.product.edit', compact('product','category')); 
@@ -65,8 +63,7 @@ class ProductController extends Controller
 
     public function deleteProduct($id)
     {
-        $imageOld = $this->productService->getImageOld($id);
-        $product = $this->productService->deleteProduct($id,$imageOld);
+        $product = $this->productService->deleteProduct($id);
         if ($product) {
             return redirect()->route('listProduct')->with('msgSuccess', 'Delete product success');
         }
