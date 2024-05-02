@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace App\Services\admin\category;
 
 use App\Repositories\category\CategoryRepository;
 class CategoryServices 

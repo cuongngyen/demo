@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\CategoryServices;
+use App\Services\admin\category\CategoryServices;
 use App\Http\Requests\admin\category\CategoryeditRequest;
 use App\Http\Requests\admin\category\CategoryRequest;
+use Illuminate\Support\Facades\Auth;
+
 class CategoryController extends Controller
 {
     public $categoryService;
-
+    
     public function __construct(CategoryServices $categoryService)
     {
+        // $this->middleware('auth');
         $this->categoryService = $categoryService;
     }
 

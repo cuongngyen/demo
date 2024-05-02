@@ -49,6 +49,7 @@
               <th scope="col">#</th>
               <th scope="col">name</th>
               <th scope="col">email</th>
+              <th scope="col">product member</th>
               <th  scope="col">Edit</th>
               <th  scope="col">Detele</th>
             </tr>
@@ -59,6 +60,7 @@
               <th scope="row">{{$value->id}}</th>
               <td>{{$value->name}}</td>
               <td>{{$value->email}}</td>
+              <td><a href="{{ route('productMember', [$value->id]) }}">see product</a></td>
               <td><a href="{{ route('editUser', [$value->id]) }}">Edit</a></td>
               <td><a href="{{ route('deleteUser', [$value->id]) }}">Detele</a></td>
             </tr>

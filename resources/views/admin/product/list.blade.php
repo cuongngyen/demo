@@ -53,6 +53,7 @@
               <th scope="col">Quantity</th>
               <th scope="col">Description</th>
               <th scope="col">Category</th>
+              <th scope="col">User</th>
               <th scope="col">Eidt</th>
               <th scope="col">Detele</th>
             </tr>
@@ -67,6 +68,7 @@
               <td>{{$value->quantity}}</td>
               <td>{{$value->description}}</td>
               <td>{{$value->category->name}}</td>
+              <td>{{$value->id_users}}</td>
               <td><a href="{{ route('editProduct', [$value->id]) }}">Edit</a></td>
               <td><a href="{{ route('deleteProduct', [$value->id]) }}">Detele</a></td>
             </tr>

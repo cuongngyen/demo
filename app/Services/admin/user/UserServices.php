@@ -1,8 +1,9 @@
 <?php
-namespace App\Services;
+namespace App\Services\admin\user;
 
 use App\Repositories\user\UserRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserServices 
 {
@@ -51,5 +52,24 @@ class UserServices
     public function deleteUser($id) 
     {
         return $this->userRepository->deleteUser($id);
+    }
+
+    public function storeLogon($attributes) 
+    {
+        $logon = [
+            'email' => $attributes['email'],
+            'password' => $attributes['password'],
+            'level' => config('constant.user.admin')
+        ];
+        if (Auth::attempt($logon)) {
+            return true;
+        } 
+        return false;
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return true;
     }
 }

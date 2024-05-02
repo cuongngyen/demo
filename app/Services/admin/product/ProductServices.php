@@ -1,9 +1,10 @@
 <?php
-namespace App\Services;
+namespace App\Services\admin\product;
 
 use App\Repositories\product\ProductRepository;
 use Illuminate\Support\Facades\File; 
 use App\Models\admin\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ProductServices 
 {
@@ -22,6 +23,12 @@ class ProductServices
     public function storeProduct(array $attributes) 
     {
         if ($attributes) {
+            if (Auth::user()->level == 0) {
+                $attributes['status'] = 1;
+            }else {
+                $attributes['status'] = 0;
+            }
+            $attributes['id_users'] = Auth::user()->id;
             $upload = $this->uploadFile($attributes);
             $attributes['image'] = $upload;
             return $this->productRepository->storeProduct($attributes);
@@ -86,6 +93,19 @@ class ProductServices
             File::delete(public_path('upload/product/'. $imageOld->image));
         }
        
+    }
+
+    public function productMember($id)
+    {
+        if ($id) {
+            return $this->productRepository->productMember($id);
+        }
+        return false;
+    }
+
+    public function updateStatus(array $attributes, $id)
+    {
+        return $this->productRepository->updateProduct($id, $attributes); 
     }
 
 }
