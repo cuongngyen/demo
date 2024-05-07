@@ -7,7 +7,7 @@ class ProductRepository
     // product
     public function listProduct() 
     {
-        return Product::with('category')->get();
+        return Product::with('category')->where('status', '=', 1)->get();
     }
 
     public function storeProduct(array $attributes) 
@@ -37,5 +37,11 @@ class ProductRepository
         }
         return false;
     }
+
+    public function productMember($id)
+    {
+        return Product::where('id_users','=',$id)->get();
+    }
+
     
 }
